@@ -1,0 +1,24 @@
+:root {
+  --paper: oklch(0.96 .018 92);
+  --surface: oklch(.982 .008 92);
+  --tint: oklch(.916 0.046 92);
+  --accent: oklch(0.44 0.11 92);
+  --on-accent: oklch(.985 .008 92);
+  --ink: oklch(.235 .037 92);
+  --muted: oklch(.42 .04 92);
+  --rule: oklch(.824 0.042 92);
+  --rail: oklch(0.27 0.064 92);
+  --rail-ink: oklch(.953 .015 92);
+  --rail-highlight: oklch(.34 0.068 92);
+  --signal: oklch(.46 .145 25);
+  --title-font: "Courier Prime", "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
+  --body-font: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --rail-width: clamp(13rem, 18vw, 19rem);
+  --login-ratio: 5fr;
+  --feature-ratio: 5fr;
+  --split-ratio: 6fr;
+  --radius: 0px;
+  --rail-size: 4px;
+  --cell-min: 6rem;
+}
+.login-story { border-top: 5px double var(--accent); padding-top: 1.7rem; }
