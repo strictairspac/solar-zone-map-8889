@@ -11,5 +11,9 @@ export const api = {
   review: id => request(`/runs/${id}/review`),
   submitReview: (id, data) => request(`/runs/${id}/review`, {method: "POST", data}),
   export: id => request(`/runs/${id}/export`, {raw: true}),
+  shipments: caseId => request(caseId ? `/cases/${caseId}/shipments` : "/shipments"),
+  createShipment: (caseId, data) => request(`/cases/${caseId}/shipments`, {method: "POST", data}),
+  allocateShipment: id => request(`/shipments/${id}/allocate`, {method: "POST"}),
+  revokeShipment: (id, data) => request(`/shipments/${id}/revoke`, {method: "POST", data: data || {}}),
   audit: () => request("/audit", {signal: AbortSignal.timeout(5000)}),
 };

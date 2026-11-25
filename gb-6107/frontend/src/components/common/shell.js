@@ -1,11 +1,17 @@
 import { Roles } from "../../constants/roles.js";
-import { routes } from "../../router/router.js";
 import { el } from "../../utils/dom.js";
 
 export function shell(config, user, route, page, signOut) {
-  const links = routes.map((name, index) => el("a", {
+  const navigation = [
+    ["overview", config.modules[0]],
+    ["cases", config.modules[1]],
+    ["shipments", "出货单配货"],
+    ["runs", config.modules[2]],
+    ["evidence", config.modules[3]],
+  ];
+  const links = navigation.map(([name, label]) => el("a", {
     href: `#${name}`, "aria-current": route.name === name ? "page" : null,
-  }, config.modules[index]));
+  }, label));
   return el("div", {class: "shell"},
     el("aside", {class: "rail"},
       el("a", {class: "brand", href: "#overview"}, config.title),

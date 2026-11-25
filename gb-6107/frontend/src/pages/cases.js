@@ -52,7 +52,9 @@ export async function casesPage(config, user, route) {
       empty("这里还没有资料。")),
     el("div", {class: "split case-split"},
       section(selected ? selected.title : "等待选择资料", selected ?
-        [el("p", {}, selected.description), operator ? queueForm(config, selected) : empty("当前账号可查看此资料。"),
+        [el("p", {}, selected.description),
+          el("p", {}, el("a", {class: "button", href: `#shipments/${selected.id}`, "data-testid": "goto-shipment"}, "为该批创建出货单")),
+          operator ? queueForm(config, selected) : empty("当前账号可查看此资料。"),
           el("details", {}, el("summary", {}, "查看业务数据"), el("pre", {}, JSON.stringify(selected.payload, null, 2)))] :
         empty("先登记一条资料，再提交执行。")),
       operator ? section("登记新资料", registration(config, selected)) : null));

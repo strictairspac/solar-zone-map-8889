@@ -56,6 +56,17 @@ docker compose up -d --build --wait
 
 `COMPOSE_PROJECT_NAME` 设置栈名，`FRONTEND_PORT`、`BACKEND_PORT`、`DB_PORT` 设置端口。通过 `DB_PASSWORD`、`JWT_SECRET`、`DEMO_PASSWORD` 配置本地凭据。设置 `SEED_DEMO=false` 可关闭演示数据载入，此时数据库初始没有演示账号。数据库密码调整后，已有数据卷需在数据库内同步修改用户密码。
 
+## 出货单分板
+
+同一闪测质保批可创建多张出货单。每张单独立给出瓦数范围、整单数量和页容量；配货仍经过 Zone Map / 空值位图同一套页段裁剪，并在单据回执中保留逐页动作、候选板件和本单分到的板件。
+
+- `POST /cases/{case_id}/shipments`：创建出货单并同步整单配货；也兼容 `/shipment-orders`、`/allocations` 等路径和 `low_cw/high_cw`、`low/high`（419.00 形式按 W 换算）等字段别名。
+- `POST /shipments/{id}/allocate|confirm|retry`：重试已配货单直接返回原板件，不重复写入占用。
+- `POST /shipments/{id}/revoke|cancel`：撤销后删除当前占用，历史分配行和单据上的 `allocated_serials` 快照保留，裁剪回执页显示“已撤销”。
+- 配货在同一质保批的行锁/进程串行区中判定已确认占用，`shipment_occupancies(case_id, serial)` 唯一约束是最终并发防线；候选不足整单时单据为 `shortage`，不写任何占用。
+
+前端新增「出货单配货」页；「裁剪回执」页按质保批汇总每单当时分到的板件与当前撤销状态，导出的 run 证据也附带 `shipments`。
+
 ## 验收范围
 
 使用等条数的内存列页段和单个闪测谓词。报告记录读取数和跳过数。 当前界面用 JSON 编辑业务资料，以 JSON 下载证据。过程和截图保存在批次的 [验收记录](../../test-artifacts/gb-6107/TESTING.md)。

@@ -22,7 +22,7 @@ CONFIG = {
 }
 
 
-def normalize(payload):
+def normalize_records(payload):
     if not isinstance(payload, dict):
         raise ValueError("输入需为对象")
     records = payload.get("test_records")
@@ -42,6 +42,11 @@ def normalize(payload):
             raise ValueError("功率需为空或在 0 至 500000 之间的整数厘瓦")
         seen.add(serial)
         rows.append((serial, reading))
+    return rows
+
+
+def normalize(payload):
+    rows = normalize_records(payload)
     config = payload.get("predicate")
     if not isinstance(config, dict) or config.get("mode") not in ("range", "null"):
         raise ValueError("predicate.mode 需要 range 或 null")
@@ -54,6 +59,7 @@ def normalize(payload):
 
 
 def validate(payload):
+    # 保留原工作台契约：登记抽检资料时必须带谓词。出货单自带范围，服务层可直接读取 records。
     normalize(payload)
 
 

@@ -8,6 +8,7 @@ import { overview } from "./pages/overview.js";
 import { casesPage } from "./pages/cases.js";
 import { runsPage } from "./pages/runs.js";
 import { evidencePage } from "./pages/evidence.js";
+import { shipmentsPage } from "./pages/shipments.js";
 
 const root = document.querySelector("#app");
 let active;
@@ -36,6 +37,7 @@ async function refresh() {
       cases: () => casesPage(config, user, route),
       runs: () => runsPage(config, route, token.signal),
       evidence: () => evidencePage(config, user, route),
+      shipments: () => shipmentsPage(config, user, route),
     };
     const page = await pages[route.name]();
     if (!token.signal.aborted) {

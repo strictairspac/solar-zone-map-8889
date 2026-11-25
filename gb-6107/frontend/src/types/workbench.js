@@ -6,7 +6,7 @@
 
 /** Reject a malformed configuration before rendering its navigation. */
 export function validateConfig(config) {
-  if (!config || !Array.isArray(config.modules) || config.modules.length !== 4 ||
+  if (!config || !Array.isArray(config.modules) || config.modules.length < 4 ||
       !Number.isInteger(config.default_parameter) || !config.title) {
     throw new Error("工作台配置不完整");
   }

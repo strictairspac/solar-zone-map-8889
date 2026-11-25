@@ -18,3 +18,4 @@ class RunEntry(BaseModel):
     result: dict | None
     failure: str | None
     digest: str | None
+    shipments: list[dict] | None = None

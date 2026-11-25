@@ -98,6 +98,15 @@ td a[aria-current=true] { font-weight: 750; }
 .evidence select { width: fit-content; max-width: 100%; }
 .signature { border-left: .2rem solid var(--accent); padding-left: .85rem; }
 .signature p { margin: .35rem 0; overflow-wrap: anywhere; }
+.shipment-layout { grid-template-columns: minmax(18rem, .85fr) minmax(0, 1.4fr); }
+.shipment-form { display: grid; gap: .85rem; }
+.shipment-card { display: grid; gap: .55rem; border: 1px solid var(--rule); border-inline-start: .24rem solid var(--accent); border-radius: var(--radius); padding: .9rem; background: var(--paper); min-width: 0; }
+.shipment-card header { display: flex; justify-content: space-between; gap: .8rem; align-items: start; flex-wrap: wrap; }
+.shipment-serials { font-family: "IBM Plex Mono", "Menlo", monospace; font-size: .9rem; overflow-wrap: anywhere; }
+.shipment-card.status-revoked, .shipment-card.status-cancelled { border-inline-start-color: var(--muted); opacity: .88; }
+.shipment-card.status-shortage { border-inline-start-color: var(--signal); }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.muted { color: var(--muted); font-size: .92rem; }
 @media (max-width: 1050px) {
   .shell { grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); }
   .split { grid-template-columns: 1fr; }
